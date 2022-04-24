@@ -1,20 +1,25 @@
-// Question 1
+const url = "https://noroff.herokuapp.com/v1/cat-facts/facts";
 
-//function getRemainder(a,b) {
-//    return a % b;
-//    }
+const resultsContainer = document.querySelector(".results");
 
-const getRemainder = (remainder) => console.log(remainder);
+async function getCats() {
+    // fetch
 
-// Question 2
-// API key: f64b7381636040c4ac434b8e8fb2371a
-// https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-rating&key=f64b7381636040c4ac434b8e8fb2371a
-const url = "https://api.rawg.io/api/games?dates=2019-01-01,2019-12-31&ordering=-rating&key=f64b7381636040c4ac434b8e8fb2371a";
-
-async function getInfo() {
     const response = await fetch(url);
 
-    console.log(response);
+    const facts = await response.json();
+
+    resultsContainer.innerHTML = "";
+
+    for (let i = 0; i < facts.length; i++) {
+        console.log(facts[i].text);
+
+        if (i === 10) {
+            break;
+        }
+
+        resultsContainer.innerHTML += `<div class="result">${facts[i].text}</div>`;
+    }
 }
 
-getInfo();
+getCats();
